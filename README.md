@@ -1,4 +1,4 @@
 # mtcars-analysis-using-R
 
-Trabalho de Estatística:
-Análise  da base de dados mtcars usando R
+TP Estatística - 08/08/22
+Análise da base de dados mtcars usando R-markdown
