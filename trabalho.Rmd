@@ -408,7 +408,7 @@ H0: média da potência bruta == 150
 teste <- t.test(base$hp, mu=150)
 teste
 ```
-Como p-valor é > que 0.05, a um nível de significância de 5%, não rejeita-se H0, ou seja, não há evidências suficientes para discordar da afirmação do colecionador.
+> Como p-valor é > que 0.05, a um nível de significância de 5%, não rejeita-se H0, ou seja, não há evidências suficientes para discordar da afirmação do colecionador.
 
 ```{r}
 # install.packages("gginference")
@@ -428,11 +428,12 @@ teste
 ```
 
 
-A um nível de significância de 5%, rejeitamos H0, ou seja, as médias são diferentes.
+> A um nível de significância de 5%, rejeitamos H0, ou seja, as médias são diferentes.
 
 ```{r}
 gginference::ggttest(teste)
 ```
+
 
 ### A média do hp dos carros com 4 cilindros é igual a média do hp dos carros com 6 cilindros?
 
@@ -440,40 +441,51 @@ gginference::ggttest(teste)
 hp4 <- base$hp[base$cyl == "4"]
 hp6 <- base$hp[base$cyl == "6"] 
 ```
+
+H0: media_hp4 == media_hp6
+
 ```{r}
 teste <- t.test(hp4, hp6)
 teste
 ```
 
-A um nível de significância de 5%, rejeitamos H0, ou seja, as médias são diferentes.
+> A um nível de significância de 5%, rejeitamos H0, ou seja, as médias são diferentes.
 
 
 ```{r}
 gginference::ggttest(teste)
 ```
+
+
 ### A média do hp dos carros com 6 cilindros é igual a média do hp dos carros com 8 cilindros?
 
 ```{r}
 hp8 = base$hp[base$cyl == "8"]
 ```
+H0: media_hp6 == media_hp8
+
 ```{r}
 teste <- t.test(hp6, hp8)
 teste
 ```
 
-A um nível de significância de 5%, rejeitamos H0, ou seja, as médias são diferentes.
+> A um nível de significância de 5%, rejeitamos H0, ou seja, as médias são diferentes.
 
 ```{r}
 gginference::ggttest(teste)
 ```
+
+
 ### A média do hp dos carros com 4 cilindros é igual a média do hp dos carros com 8 cilindros?
+
+H0: media_hp4 == media_hp8
 
 ```{r}
 teste <- t.test(hp4, hp8)
 teste
 ```
 
-A um nível de significância de 5%, rejeitamos H0, ou seja, as médias são diferentes.
+> A um nível de significância de 5%, rejeitamos H0, ou seja, as médias são diferentes.
 
 
 ```{r}
