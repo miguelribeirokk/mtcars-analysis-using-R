@@ -1,0 +1,481 @@
+---
+title: "Trabalho de Estatística"
+author: "Miguel Antônio Ribeiro e Silva -  4680"
+date: '2022-08-07'
+output: html_document
+---
+
+## **Lendo a base de dados mtcars**
+```{r}
+mtcars
+```
+
+```{r}
+base <- data.frame(mtcars)
+head(base)
+```
+## **Variáveis e tipos**
+
+**mpg**: milhas/(US) galão - Quantitativa
+
+**cyl**: número de cilindros - Qualitativa
+
+**disp**: deslocamento - Quantitativa
+
+**hp**: potência bruta - Quantitativa
+
+**drat**: relação do eixo traseiro - Quantitativa
+
+**wt**: peso (1000 libras) - Quantitativa
+
+**qsec**: tempo de 1/4 de milha - Quantitativa
+
+**vs**: motor (0 = em forma de V, 1 = reto) - Qualitativa
+
+**am**: transmissão (0 = automática, 1 = manual) - Qualitativa
+
+**gear**: número de marchas para frente - Qualitativa
+
+**carb**: número de carburadores - Qualitativa
+
+```{r}
+base$cyl <- as.factor(base$cyl)
+base$am <- as.factor(base$am)
+base$gear <- as.factor(base$gear)
+base$carb <- as.factor(base$carb)
+str(base)
+```
+## **Descritivas de Quantitativas**
+
+### mpg
+```{r}
+descritivampg <- data.frame(
+  "Variável" = "mpg",
+  "Média" = mean(base$mpg),
+  "Variância" = var(base$mpg),
+  "Mínimo" = min(base$mpg),
+  "Q1" = quantile(base$mpg, 0.25),
+  "Mediana" = median(base$mpg),
+  "Q3" = quantile(base$mpg, 0.75),
+  "Máximo" = max(base$mpg)
+
+  )
+descritivampg
+```
+```{r}
+boxplot(base$mpg)
+```
+
+
+### disp
+```{r}
+descritivadisp <- data.frame(
+  "Variável" = "disp",
+  "Média" = mean(base$disp),
+  "Variância" = var(base$disp),
+  "Mínimo" = min(base$disp),
+  "Q1" = quantile(base$disp, 0.25),
+  "Mediana" = median(base$disp),
+  "Q3" = quantile(base$disp, 0.75),
+  "Máximo" = max(base$disp)
+
+  )
+descritivadisp
+```
+```{r}
+boxplot(base$disp)
+```
+
+
+### hp
+```{r}
+descritivahp <- data.frame(
+  "Variável" = "hp",
+  "Média" = mean(base$hp),
+  "Variância" = var(base$hp),
+  "Mínimo" = min(base$hp),
+  "Q1" = quantile(base$hp, 0.25),
+  "Mediana" = median(base$hp),
+  "Q3" = quantile(base$hp, 0.75),
+  "Máximo" = max(base$hp)
+
+  )
+descritivahp
+```
+```{r}
+boxplot(base$hp)
+```
+
+
+### drat
+```{r}
+descritivadrat <- data.frame(
+  "Variável" = "drat",
+  "Média" = mean(base$drat),
+  "Variância" = var(base$drat),
+  "Mínimo" = min(base$drat),
+  "Q1" = quantile(base$drat, 0.25),
+  "Mediana" = median(base$drat),
+  "Q3" = quantile(base$drat, 0.75),
+  "Máximo" = max(base$drat)
+
+  )
+descritivadrat
+```
+```{r}
+boxplot(base$drat)
+```
+
+
+### wt
+```{r}
+descritivawt <- data.frame(
+  "Variável" = "wt",
+  "Média" = mean(base$wt),
+  "Variância" = var(base$wt),
+  "Mínimo" = min(base$wt),
+  "Q1" = quantile(base$wt, 0.25),
+  "Mediana" = median(base$wt),
+  "Q3" = quantile(base$wt, 0.75),
+  "Máximo" = max(base$wt)
+
+  )
+descritivawt
+```
+```{r}
+boxplot(base$wt)
+```
+
+
+### qsec
+```{r}
+descritivaqsec <- data.frame(
+  "Variável" = "qsec",
+  "Média" = mean(base$qsec),
+  "Variância" = var(base$qsec),
+  "Mínimo" = min(base$qsec),
+  "Q1" = quantile(base$qsec, 0.25),
+  "Mediana" = median(base$qsec),
+  "Q3" = quantile(base$qsec, 0.75),
+  "Máximo" = max(base$qsec)
+
+  )
+descritivaqsec
+```
+```{r}
+boxplot(base$qsec)
+```
+
+
+### Tabela com todas
+```{r}
+descritivas <- rbind(descritivampg, descritivadisp, descritivahp, descritivadrat, descritivawt, descritivaqsec)
+descritivas
+```
+
+## **Descritivas de Qualitativas**
+
+### cyl
+```{r}
+table(base$cyl)
+```
+```{r}
+plot(base$cyl)
+```
+
+### vs
+```{r}
+table(base$vs)
+```
+
+```{r}
+plot(base$vs)
+```
+
+
+
+### am
+```{r}
+table(base$am)
+```
+
+```{r}
+plot(base$am)
+```
+
+### gear
+```{r}
+table(base$gear)
+```
+
+```{r}
+plot(base$gear)
+```
+
+### carb
+```{r}
+table(base$carb)
+```
+
+```{r}
+plot(base$carb)
+```
+
+## **Descritiva Bivariada**
+
+### mpg x am
+
+```{r}
+mpg0 <- base$mpg[base$am == "0"]
+mpg1 <- base$mpg[base$am == "1"]
+```
+```{r}
+descritiva_mpgxam <- data.frame(
+  "Variável" = "mpg",
+  "Grupo" = c("0 - automática", "1 - manual"),
+  "Média" = c(mean(mpg0), mean(mpg1)),
+  "Variância" = c(var(mpg0), var(mpg1)),
+  "Mínimo" = c(min(mpg0), min(mpg1)),
+  "Q1" = c(quantile(mpg0, 0.25), quantile(mpg1, 0.25)),
+  "Mediana" = c(median(mpg0), median(mpg1)),
+  "Q3" = c(quantile(mpg0, 0.75), quantile(mpg1, 0.75)),
+  "Máximo" = c(max(mpg0), max(mpg1))
+)
+descritiva_mpgxam
+  
+```
+```{r}
+boxplot(base$mpg ~ base$am)
+```
+
+
+### disp x am
+```{r}
+disp0 <- base$disp[base$am == "0"]
+disp1 <- base$disp[base$am == "1"]
+```
+```{r}
+descritiva_dispxam <- data.frame(
+  "Variável" = "disp",
+  "Grupo" = c("0 - automática", "1 - manual"),
+  "Média" = c(mean(disp0), mean(disp1)),
+  "Variância" = c(var(disp0), var(disp1)),
+  "Mínimo" = c(min(disp0), min(disp1)),
+  "Q1" = c(quantile(disp0, 0.25), quantile(disp1, 0.25)),
+  "Mediana" = c(median(disp0), median(disp1)),
+  "Q3" = c(quantile(disp0, 0.75), quantile(disp1, 0.75)),
+  "Máximo" = c(max(disp0), max(disp1))
+)
+descritiva_dispxam
+  
+```
+```{r}
+boxplot(base$disp ~ base$am)
+```
+
+### hp x am
+
+```{r}
+hp0 <- base$hp[base$am == "0"]
+hp1 <- base$hp[base$am == "1"]
+```
+```{r}
+descritiva_hpxam <- data.frame(
+  "Variável" = "hp",
+  "Grupo" = c("0 - automática", "1 - manual"),
+  "Média" = c(mean(hp0), mean(hp1)),
+  "Variância" = c(var(hp0), var(hp1)),
+  "Mínimo" = c(min(hp0), min(hp1)),
+  "Q1" = c(quantile(hp0, 0.25), quantile(hp1, 0.25)),
+  "Mediana" = c(median(hp0), median(hp1)),
+  "Q3" = c(quantile(hp0, 0.75), quantile(hp1, 0.75)),
+  "Máximo" = c(max(hp0), max(hp1))
+)
+descritiva_hpxam
+  
+```
+```{r}
+boxplot(base$hp ~ base$am)
+```
+
+### drat x am
+
+```{r}
+drat0 <- base$drat[base$am == "0"]
+drat1 <- base$drat[base$am == "1"]
+```
+```{r}
+descritiva_dratxam <- data.frame(
+  "Variável" = "drat",
+  "Grupo" = c("0 - automática", "1 - manual"),
+  "Média" = c(mean(drat0), mean(drat1)),
+  "Variância" = c(var(drat0), var(drat1)),
+  "Mínimo" = c(min(drat0), min(drat1)),
+  "Q1" = c(quantile(drat0, 0.25), quantile(drat1, 0.25)),
+  "Mediana" = c(median(drat0), median(drat1)),
+  "Q3" = c(quantile(drat0, 0.75), quantile(drat1, 0.75)),
+  "Máximo" = c(max(drat0), max(drat1))
+)
+descritiva_dratxam
+  
+```
+```{r}
+boxplot(base$drat ~ base$am)
+```
+
+### wt x am
+
+```{r}
+wt0 <- base$wt[base$am == "0"]
+wt1 <- base$wt[base$am == "1"]
+```
+```{r}
+descritiva_wtxam <- data.frame(
+  "Variável" = "wt",
+  "Grupo" = c("0 - automática", "1 - manual"),
+  "Média" = c(mean(wt0), mean(wt1)),
+  "Variância" = c(var(wt0), var(wt1)),
+  "Mínimo" = c(min(wt0), min(wt1)),
+  "Q1" = c(quantile(wt0, 0.25), quantile(wt1, 0.25)),
+  "Mediana" = c(median(wt0), median(wt1)),
+  "Q3" = c(quantile(wt0, 0.75), quantile(wt1, 0.75)),
+  "Máximo" = c(max(wt0), max(wt1))
+)
+descritiva_wtxam
+  
+```
+```{r}
+boxplot(base$wt ~ base$am)
+```
+
+### qsec x am
+
+```{r}
+qsec0 <- base$qsec[base$am == "0"]
+qsec1 <- base$qsec[base$am == "1"]
+```
+```{r}
+descritiva_qsecxam <- data.frame(
+  "Variável" = "qsec",
+  "Grupo" = c("0 - automática", "1 - manual"),
+  "Média" = c(mean(qsec0), mean(qsec1)),
+  "Variância" = c(var(qsec0), var(qsec1)),
+  "Mínimo" = c(min(qsec0), min(qsec1)),
+  "Q1" = c(quantile(qsec0, 0.25), quantile(qsec1, 0.25)),
+  "Mediana" = c(median(qsec0), median(qsec1)),
+  "Q3" = c(quantile(qsec0, 0.75), quantile(qsec1, 0.75)),
+  "Máximo" = c(max(mpg0), max(mpg1))
+)
+descritiva_qsecxam
+  
+```
+```{r}
+boxplot(base$qsec ~ base$am)
+```
+
+## **Avaliando correlação**
+
+### mpg e disp
+
+```{r}
+cor(base$mpg, base$disp)
+```
+A correlação entre as duas variáveis é negativa, ou seja, quanto maior a proporção milhas/galão, menor é a distância percorrida.
+
+### mpg e hp
+
+```{r}
+cor(base$mpg, base$hp)
+```
+A correlação entre as duas variáveis é negativa, ou seja, quanto maior a proporção milhas/galão, menor é a potência bruta.
+
+### disp e hp
+
+```{r}
+cor(base$disp, base$hp )
+```
+
+A correlação entre as duas variáveis é positiva, ou seja, quanto maior a distância, maior é a potência bruta.
+
+
+## **Teste de Hipóteses**
+
+### Um colecionador de carros afirma que a média da potência bruta da sua coleção é de 150. Ele então disponibiliza uma amostra (mtcars) da sua coleção. Ele está mentindo?
+
+H0: média da potência bruta == 150
+
+```{r}
+teste <- t.test(base$hp, mu=150)
+teste
+```
+Como p-valor é > que 0.05, a um nível de significância de 5%, não rejeita-se H0, ou seja, não há evidências suficientes para discordar da afirmação do colecionador.
+
+```{r}
+# install.packages("gginference")
+```
+```{r}
+gginference::ggttest(teste)
+```
+
+### A média das milhas por galão de carros com transmissão automatica é igual a carros com transmissão manual?
+
+H0: media_mpg0 == media_mpg1
+
+
+```{r}
+teste <- t.test(mpg0, mpg1)
+teste
+```
+
+
+A um nível de significância de 5%, rejeitamos H0, ou seja, as médias são diferentes.
+
+```{r}
+gginference::ggttest(teste)
+```
+
+### A média do hp dos carros com 4 cilindros é igual a média do hp dos carros com 6 cilindros?
+
+```{r}
+hp4 <- base$hp[base$cyl == "4"]
+hp6 <- base$hp[base$cyl == "6"] 
+```
+```{r}
+teste <- t.test(hp4, hp6)
+teste
+```
+
+A um nível de significância de 5%, rejeitamos H0, ou seja, as médias são diferentes.
+
+
+```{r}
+gginference::ggttest(teste)
+```
+### A média do hp dos carros com 6 cilindros é igual a média do hp dos carros com 8 cilindros?
+
+```{r}
+hp8 = base$hp[base$cyl == "8"]
+```
+```{r}
+teste <- t.test(hp6, hp8)
+teste
+```
+
+A um nível de significância de 5%, rejeitamos H0, ou seja, as médias são diferentes.
+
+```{r}
+gginference::ggttest(teste)
+```
+### A média do hp dos carros com 4 cilindros é igual a média do hp dos carros com 8 cilindros?
+
+```{r}
+teste <- t.test(hp4, hp8)
+teste
+```
+
+A um nível de significância de 5%, rejeitamos H0, ou seja, as médias são diferentes.
+
+
+```{r}
+gginference::ggttest(teste)
+```
